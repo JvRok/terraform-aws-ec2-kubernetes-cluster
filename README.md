@@ -8,12 +8,14 @@ This repo is created to flesh out my understanding of Kubernetes + Terraform thr
   - [Updates](#updates)
   - [Description](#description)
   - [Dependencies and Setup](#dependencies-and-setup)
+  - [Notes](#notes)
+  - [Planned Changes](#planned-changes)
 
 <!-- /TOC -->
 
 ## Updates
 
-- *x.7.2022* Readme + TBA
+- *2022.07.11* Readme + Initial Controller EC2 Instance
 
 ## Description
 
@@ -22,4 +24,20 @@ I would generally use EKS on AWS, but the purpose of this module is to explore a
 
 ## Dependencies and Setup
 
-- TBA
+- VPCs + Subnets already created. These will be defaulted out in the repo.
+
+## Notes
+
+With the stated goal of this module being a learning experience, this section contains the a changing high-level detail of k8s setup with terraform and any relevant/useful details.
+
+## Planned Changes
+
+- *Provision EC2 Controller Node*
+- *Bootstrap K8s setup*
+- *Open up security groups*
+  - Auto create the groups and add workers/masters.
+- *Install basic CNI*
+  - What CNI to use? Flannel? TBA
+- *Demo basic webapp on module*
+- *Final Change:*
+  - Make the module instantiable (e.g. populated example folder, take out hardcoded dependencies that makes this personal rather than templated).
