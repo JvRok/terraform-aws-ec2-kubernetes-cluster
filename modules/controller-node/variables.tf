@@ -30,3 +30,7 @@ variable "subnet_id" {
   description = "The subnet of the main controller node"
 }
 
+variable ssh_keyname {
+  description = "SSH key for controller"
+}
+

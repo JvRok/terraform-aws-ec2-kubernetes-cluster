@@ -18,3 +18,7 @@ variable "controller_ec2_instance_type" {
   default = "t2.medium"
   nullable = false
 }
+
+variable "ssh_keyname" {
+  description = "Public key to allow ssh onto server"
+}

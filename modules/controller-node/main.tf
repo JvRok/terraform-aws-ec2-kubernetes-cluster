@@ -20,12 +20,21 @@ data "aws_ami" "os" {
 }
 
 resource "aws_instance" "kubernetes-controller" {
-  ami               = data.aws_ami.os.id
-  instance_type     = var.ec2_instance_type
-  subnet_id         = var.subnet_id
-  associate_public_ip_address = false           #Controller doesn't need a public IP
-  tags              = {
-                        Name = var.name
-                      }
-  user_data = "${file("${path.module}/bootstrap/kubernetes-master-setup.sh")}"
+  ami                         = data.aws_ami.os.id
+  instance_type               = var.ec2_instance_type
+  subnet_id                   = var.subnet_id 
+  key_name                    = var.ssh_keyname
+  associate_public_ip_address = true           #Controller doesn't need a public IP
+  tags                        = {
+                                Name = var.name
+                                }
+  user_data                   = "${file("${path.module}/bootstrap/kubernetes-master-setup.sh")}"
+
+  #Size/type of os disk
+  #At this point will keep it to single disk/small to save complexity
+  root_block_device {
+    volume_size           = "20"
+    volume_type           = "gp2"
+  }
+
 }

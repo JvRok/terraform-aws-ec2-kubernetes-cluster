@@ -25,6 +25,7 @@ I would generally use EKS on AWS, but the purpose of this module is to explore a
 ## Dependencies and Setup
 
 - VPCs + Subnets already created. These will be defaulted out in the repo.
+- Login Keys for Servers need to exist on AWS, name the key you want in the variables after.
 
 ## Notes
 
