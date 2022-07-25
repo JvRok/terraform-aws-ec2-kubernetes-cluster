@@ -111,5 +111,5 @@ module "worker_node" {
   join_tokenid           = local.tokenid
   endpointip             = module.controller_node.endpointip
 
-  depends_on = [module.controller_node, aws_security_group.k8s_worker_nodes_sg]
+  depends_on = [module.controller_node]
 }

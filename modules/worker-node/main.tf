@@ -64,7 +64,16 @@ resource "aws_security_group_rule" "k8s_worker_controller_nodeport" {
   protocol           = "tcp"
   security_group_id  = var.k8s_worker_nodes_sg
   source_security_group_id = var.k8s_controller_node_sg
+}
 
+resource "aws_security_group_rule" "k8s_worker_worker_ingress_bgp" {
+  type = "ingress"
+  description        = "Nodeport Ingress"
+  from_port          = 179
+  to_port            = 179
+  protocol           = "tcp"
+  security_group_id  = var.k8s_worker_nodes_sg
+  source_security_group_id = var.k8s_controller_node_sg
 }
 
 # Allow outgoing connectivity
@@ -98,6 +107,16 @@ resource "aws_security_group_rule" "k8s_worker_to_controller_api" {
   source_security_group_id = var.k8s_controller_node_sg
 }
 
+resource "aws_security_group_rule" "worker_to_controller_bgp" {
+  type = "egress"
+  description        = "Worker to API controller node"
+  from_port          = 179
+  to_port            = 179
+  protocol           = "tcp"
+  security_group_id  = var.k8s_worker_nodes_sg
+  source_security_group_id = var.k8s_controller_node_sg
+}
+
 resource "aws_security_group_rule" "k8s_worker_nodeport_to_controller" {
   type = "egress"
   description        = "Node port IPs"
@@ -106,7 +125,6 @@ resource "aws_security_group_rule" "k8s_worker_nodeport_to_controller" {
   protocol           = "tcp"
   security_group_id  = var.k8s_worker_nodes_sg
   source_security_group_id = var.k8s_controller_node_sg
-
 }
 
 resource "aws_instance" "kubernetes-worker" {

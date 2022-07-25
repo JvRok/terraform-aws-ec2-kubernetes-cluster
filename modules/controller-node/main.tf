@@ -67,6 +67,17 @@ resource "aws_security_group_rule" "k8s_controlplane_nodeport_entry" {
   source_security_group_id = var.k8s_worker_nodes_sg
 }
 
+#ingress workers
+resource "aws_security_group_rule" "k8s_controlplane_ingress_bgp" {
+  type                     = "ingress"
+  description              = "Nodeport Ingress"
+  from_port                = 179
+  to_port                  = 179
+  protocol                 = "tcp"
+  security_group_id        = var.k8s_controller_node_sg
+  source_security_group_id = var.k8s_worker_nodes_sg
+}
+
 # Allow outgoing connectivity
 resource "aws_security_group_rule" "controller_outbound_http" {
   type              = "egress"
@@ -103,6 +114,16 @@ resource "aws_security_group_rule" "k8s_controlplane_nodeport" {
   description              = "Node port IPs"
   from_port                = 30000
   to_port                  = 32767
+  protocol                 = "tcp"
+  security_group_id        = var.k8s_controller_node_sg
+  source_security_group_id = var.k8s_worker_nodes_sg
+}
+
+resource "aws_security_group_rule" "k8s_controller_to_worker_bgp" {
+  type                     = "egress"
+  description              = "Node port IPs"
+  from_port                = 179
+  to_port                  = 179
   protocol                 = "tcp"
   security_group_id        = var.k8s_controller_node_sg
   source_security_group_id = var.k8s_worker_nodes_sg
