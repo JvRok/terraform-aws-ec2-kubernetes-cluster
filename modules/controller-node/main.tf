@@ -27,5 +27,5 @@ resource "aws_instance" "kubernetes-controller" {
   tags              = {
                         Name = var.name
                       }
-  user_data = "${file("/bootstrap/kubernetes-master-setup.sh")}"
+  user_data = "${file("${path.module}/bootstrap/kubernetes-master-setup.sh")}"
 }
