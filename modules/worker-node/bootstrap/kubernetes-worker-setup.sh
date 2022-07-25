@@ -73,14 +73,8 @@ systemctl enable --now kubelet
 
 
 #Now its time for pod racing
-kubeadm init --pod-network-cidr=192.168.0.0/16 --token ${init_token}
+kubeadm join ${endpointip}:6443 --token ${init_token}
 
 mkdir -p /root/.kube
 cp -i /etc/kubernetes/admin.conf /root/.kube/config
 chown $(id -u):$(id -g) /root/.kube/config
-
-curl https://docs.projectcalico.org/manifests/calico.yaml -O
-
-/usr/bin/kubectl  apply -f calico.yaml --kubeconfig=/etc/kubernetes/admin.conf 
-
-#calicoctl not installed here, could be done?

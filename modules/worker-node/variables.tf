@@ -2,7 +2,7 @@
 variable "name" {
   type = string
   description = "Name to pass on to ec2 name tag"
-  default = "terraform-k8s-controller-node"
+  default = "terraform-k8s-worker-node"
   nullable = false
 }
 
@@ -48,6 +48,10 @@ variable k8s_controller_node_sg {
 
 variable k8s_worker_nodes_sg {
   description = "Worker node security group"
+}
+
+variable endpointip {
+  description = "Controller IP Address"
 }
 
 variable join_tokenid {
