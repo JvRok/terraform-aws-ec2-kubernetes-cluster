@@ -33,11 +33,19 @@ With the stated goal of this module being a learning experience, this section co
 ## Planned Changes
 
 - *Provision EC2 Controller Node*
-- *Bootstrap K8s setup*
+  - Pre-requisite setup
+  - Kubeadm based installation
+  - output variables for other node's setups
+  - *Install basic CNI*
+    - Calico as it supports ingress
+- *Setup n amount of worker nodes*
+  - Requires output vars from controller
+  - Setup with kubeadm
+  - Join with kubeadm string
 - *Open up security groups*
+  - Requires output vars from controller + workers
   - Auto create the groups and add workers/masters.
-- *Install basic CNI*
-  - What CNI to use? Flannel? TBA
+
 - *Demo basic webapp on module*
 - *Final Change:*
   - Make the module instantiable (e.g. populated example folder, take out hardcoded dependencies that makes this personal rather than templated).
