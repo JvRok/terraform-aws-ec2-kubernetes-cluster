@@ -73,7 +73,7 @@ systemctl enable --now kubelet
 
 
 #Now its time for pod racing
-kubeadm join ${endpointip}:6443 --token ${init_token}
+kubeadm join --token ${init_token} --discovery-token-unsafe-skip-ca-verification ${endpointip}:6443
 
 mkdir -p /root/.kube
 cp -i /etc/kubernetes/admin.conf /root/.kube/config
