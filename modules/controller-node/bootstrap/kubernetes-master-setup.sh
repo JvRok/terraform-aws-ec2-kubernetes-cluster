@@ -79,7 +79,6 @@ mkdir -p /root/.kube
 cp -i /etc/kubernetes/admin.conf /root/.kube/config
 chown $(id -u):$(id -g) /root/.kube/config
 
-kubectl create -f https://projectcalico.docs.tigera.io/manifests/tigera-operator.yaml
-kubectl create -f https://projectcalico.docs.tigera.io/manifests/custom-resources.yaml
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 
 #calicoctl not installed here, could be done?
