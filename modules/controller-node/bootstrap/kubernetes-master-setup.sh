@@ -79,6 +79,8 @@ mkdir -p /root/.kube
 cp -i /etc/kubernetes/admin.conf /root/.kube/config
 chown $(id -u):$(id -g) /root/.kube/config
 
-kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+curl https://docs.projectcalico.org/manifests/calico.yaml -O
+
+/usr/bin/kubectl  apply -f calico.yaml --kubeconfig=/etc/kubernetes/admin.conf 
 
 #calicoctl not installed here, could be done?
