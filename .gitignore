@@ -34,3 +34,4 @@ override.tf.json
 terraform.rc
 examples/.terraform.lock.hcl
 .terraform.lock.hcl
+.vscode/settings.json
