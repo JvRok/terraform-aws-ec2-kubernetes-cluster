@@ -16,6 +16,7 @@ This repo is created to flesh out my understanding of Kubernetes + Terraform thr
 ## Updates
 
 - *2022.07.11* Readme + Initial Controller EC2 Instance
+- *2022.07.26* Security Groups, Routing Table + VPC, Token Random Generation for Init, worker node join
 
 ## Description
 
@@ -23,10 +24,7 @@ This repo is created to flesh out my understanding of Kubernetes + Terraform thr
 I would generally use EKS on AWS, but the purpose of this module is to explore all of K8s, Rough Edges includes. Possibly as a basis for further exploration of Kubernetes in the future.
 
 ## Dependencies and Setup
-
-- VPCs + Subnets already created. These will be defaulted out in the repo.
-- Login Keys for Servers need to exist on AWS, name the key you want in the variables after.
-
+TBA
 ## Notes
 
 With the stated goal of this module being a learning experience, this section contains the a changing high-level detail of k8s setup with terraform and any relevant/useful details.
