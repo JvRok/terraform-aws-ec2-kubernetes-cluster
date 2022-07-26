@@ -29,7 +29,7 @@ TBA
 
 ## Notes
 
-With the stated goal of this module being a learning experience, this section contains the a changing high-level detail of k8s setup with terraform and any relevant/useful details.
+With the stated goal of this module being a learning experience, this section contains the (changing) high-level detail of k8s setup with terraform and any relevant/useful details.
 
 ## Planned Changes
 
@@ -49,9 +49,9 @@ With the stated goal of this module being a learning experience, this section co
 - *Open up security groups*
   - ~~Requires output vars from controller + workers~~
   - ~~Auto create the groups and add workers/masters.~~
-
 - *Demo basic webapp on module*
 - *Additional Changes:*
+  - Clean up init script
   - Make the module instantiable (e.g. populated example folder, take out hardcoded dependencies that makes this personal rather than templated)
   - Scaling worker nodes (horizontally) based on demand
   - Resilience
