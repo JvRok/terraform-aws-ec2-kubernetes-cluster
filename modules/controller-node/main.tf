@@ -20,7 +20,7 @@ data "aws_ami" "os" {
 }
 
 data "template_file" "k8s_controller_script" {
-  template = "${file("${path.module}/bootstrap/kubernetes-master-setup.sh")}"
+  template = file("${path.module}/bootstrap/kubernetes-master-setup.sh")
 
   vars = {
     init_token = var.join_tokenid
@@ -134,7 +134,7 @@ resource "aws_instance" "kubernetes-controller" {
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.k8s_subnet_id
   key_name                    = var.ssh_keyname
-  associate_public_ip_address = true           #Controller doesn't need a public IP
+  associate_public_ip_address = true #Controller doesn't need a public IP
   tags                        = { Name = var.name }
   user_data                   = data.template_file.k8s_controller_script.rendered
   vpc_security_group_ids      = [var.k8s_controller_node_sg]
@@ -142,8 +142,8 @@ resource "aws_instance" "kubernetes-controller" {
   #Size/type of os disk
   #At this point will keep it to single disk/small to save complexity
   root_block_device {
-    volume_size           = "20"
-    volume_type           = "gp2"
+    volume_size = "20"
+    volume_type = "gp2"
   }
 }
 

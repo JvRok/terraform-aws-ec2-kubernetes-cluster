@@ -20,7 +20,7 @@ data "aws_ami" "os" {
 }
 
 data "template_file" "k8s_worker_script" {
-  template = "${file("${path.module}/bootstrap/kubernetes-worker-setup.sh")}"
+  template = file("${path.module}/bootstrap/kubernetes-worker-setup.sh")
 
   vars = {
     endpointip = var.endpointip
@@ -36,43 +36,43 @@ data "template_file" "k8s_worker_script" {
 #3. SSH from WORLD to Kubernetes --- This is only as this is a TEST CLUSTER. Else this would be a bad idea.
 
 resource "aws_security_group_rule" "k8s_worker_ssh_ingress" {
-  type = "ingress"
-  description      = "SSH from PC for remote Sysadmining"
-  from_port        = 22
-  to_port          = 22
-  protocol         = "tcp"
-  security_group_id  = var.k8s_worker_nodes_sg
-  cidr_blocks      = ["0.0.0.0/0"]
+  type              = "ingress"
+  description       = "SSH from PC for remote Sysadmining"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  security_group_id = var.k8s_worker_nodes_sg
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 #ingress workers
 resource "aws_security_group_rule" "k8s_worker_controller_ingress" {
-  type = "ingress"
-  description        = "API Server port"
-  from_port          = 10250
-  to_port            = 10250
-  protocol           = "tcp"
-  security_group_id  = var.k8s_worker_nodes_sg
+  type                     = "ingress"
+  description              = "API Server port"
+  from_port                = 10250
+  to_port                  = 10250
+  protocol                 = "tcp"
+  security_group_id        = var.k8s_worker_nodes_sg
   source_security_group_id = var.k8s_controller_node_sg
 }
 #ingress workers
 resource "aws_security_group_rule" "k8s_worker_controller_nodeport" {
-  type = "ingress"
-  description        = "Nodeport Ingress"
-  from_port          = 30000
-  to_port            = 32767
-  protocol           = "tcp"
-  security_group_id  = var.k8s_worker_nodes_sg
+  type                     = "ingress"
+  description              = "Nodeport Ingress"
+  from_port                = 30000
+  to_port                  = 32767
+  protocol                 = "tcp"
+  security_group_id        = var.k8s_worker_nodes_sg
   source_security_group_id = var.k8s_controller_node_sg
 }
 
 resource "aws_security_group_rule" "k8s_worker_worker_ingress_bgp" {
-  type = "ingress"
-  description        = "Nodeport Ingress"
-  from_port          = 179
-  to_port            = 179
-  protocol           = "tcp"
-  security_group_id  = var.k8s_worker_nodes_sg
+  type                     = "ingress"
+  description              = "Nodeport Ingress"
+  from_port                = 179
+  to_port                  = 179
+  protocol                 = "tcp"
+  security_group_id        = var.k8s_worker_nodes_sg
   source_security_group_id = var.k8s_controller_node_sg
 }
 
@@ -98,32 +98,32 @@ resource "aws_security_group_rule" "worker_https_outbound" {
 
 
 resource "aws_security_group_rule" "k8s_worker_to_controller_api" {
-  type = "egress"
-  description        = "Worker to API controller node"
-  from_port          = 6443
-  to_port            = 6443
-  protocol           = "tcp"
-  security_group_id  = var.k8s_worker_nodes_sg
+  type                     = "egress"
+  description              = "Worker to API controller node"
+  from_port                = 6443
+  to_port                  = 6443
+  protocol                 = "tcp"
+  security_group_id        = var.k8s_worker_nodes_sg
   source_security_group_id = var.k8s_controller_node_sg
 }
 
 resource "aws_security_group_rule" "worker_to_controller_bgp" {
-  type = "egress"
-  description        = "Worker to API controller node"
-  from_port          = 179
-  to_port            = 179
-  protocol           = "tcp"
-  security_group_id  = var.k8s_worker_nodes_sg
+  type                     = "egress"
+  description              = "Worker to API controller node"
+  from_port                = 179
+  to_port                  = 179
+  protocol                 = "tcp"
+  security_group_id        = var.k8s_worker_nodes_sg
   source_security_group_id = var.k8s_controller_node_sg
 }
 
 resource "aws_security_group_rule" "k8s_worker_nodeport_to_controller" {
-  type = "egress"
-  description        = "Node port IPs"
-  from_port          = 30000
-  to_port            = 32767
-  protocol           = "tcp"
-  security_group_id  = var.k8s_worker_nodes_sg
+  type                     = "egress"
+  description              = "Node port IPs"
+  from_port                = 30000
+  to_port                  = 32767
+  protocol                 = "tcp"
+  security_group_id        = var.k8s_worker_nodes_sg
   source_security_group_id = var.k8s_controller_node_sg
 }
 
@@ -132,7 +132,7 @@ resource "aws_instance" "kubernetes-worker" {
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.k8s_subnet_id
   key_name                    = var.ssh_keyname
-  associate_public_ip_address = true           #Controller doesn't need a public IP
+  associate_public_ip_address = true #Controller doesn't need a public IP
   tags                        = { Name = var.name }
   user_data                   = data.template_file.k8s_worker_script.rendered
   vpc_security_group_ids      = [var.k8s_worker_nodes_sg]
@@ -140,8 +140,8 @@ resource "aws_instance" "kubernetes-worker" {
   #Size/type of os disk
   #At this point will keep it to single disk/small to save complexity
   root_block_device {
-    volume_size           = "20"
-    volume_type           = "gp2"
+    volume_size = "20"
+    volume_type = "gp2"
   }
 
 }
