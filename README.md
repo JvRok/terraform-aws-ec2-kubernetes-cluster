@@ -24,7 +24,9 @@ This repo is created to flesh out my understanding of Kubernetes + Terraform thr
 I would generally use EKS on AWS, but the purpose of this module is to explore all of K8s, Rough Edges includes. Possibly as a basis for further exploration of Kubernetes in the future.
 
 ## Dependencies and Setup
+
 TBA
+
 ## Notes
 
 With the stated goal of this module being a learning experience, this section contains the a changing high-level detail of k8s setup with terraform and any relevant/useful details.
