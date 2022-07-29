@@ -9,4 +9,4 @@ terraform init
 terraform apply
 ```
 
-Variables are defaulted in sub-modules, as well as root module, but can be overwritten as in examples.tf
+Variables are defaulted in sub-modules, as well as root module, but can be overwritten as in examples/main.tf
