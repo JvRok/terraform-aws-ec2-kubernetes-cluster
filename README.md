@@ -55,3 +55,4 @@ With the stated goal of this module being a learning experience, this section co
   - Make the module instantiable (e.g. populated example folder, take out hardcoded dependencies that makes this personal rather than templated)
   - Scaling worker nodes (horizontally) based on demand
   - Resilience
+  - Make SSH access to the controller nodes from public IPs a choice, and default false for security sake
