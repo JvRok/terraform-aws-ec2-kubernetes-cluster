@@ -17,7 +17,7 @@ alternatively use a custom names tfvars file:
 ```bash windows
 #!/bin/bash
 terraform init
-terraform apply -var-file=<tfvarsfile>.tf
+terraform apply -var-file=<tfvarsfile>.tfvars
 ```
 
 Variables are defaulted in sub-modules, as well as root module, but can be overwritten as in examples/main.tf

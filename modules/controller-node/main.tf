@@ -23,7 +23,8 @@ data "template_file" "k8s_controller_script" {
   template = file("${path.module}/bootstrap/kubernetes-master-setup.sh")
 
   vars = {
-    init_token = var.join_tokenid
+    init_token = var.join_tokenid,
+    apiaccess  = var.apiaccess
   }
 
 }
@@ -53,7 +54,6 @@ resource "aws_security_group_rule" "k8s_controlplane_controller_api" {
   protocol                 = "tcp"
   security_group_id        = var.k8s_controller_node_sg
   source_security_group_id = var.k8s_worker_nodes_sg
-
 }
 
 #ingress workers
@@ -93,6 +93,31 @@ resource "aws_security_group_rule" "controller_https_outbound" {
   type              = "egress"
   from_port         = 443
   to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = var.k8s_controller_node_sg
+}
+
+#API Server connectivity
+#VERY INSECURE. Purely for integration without spinning up on-prem helm
+resource "aws_security_group_rule" "k8s_controlplane_apiserver_access" {
+  count             = var.apiaccess == "true" ? 1 : 0
+  type              = "ingress"
+  description       = "API Server connection from remote Host"
+  from_port         = 6443
+  to_port           = 6443
+  protocol          = "tcp"
+  security_group_id = var.k8s_controller_node_sg
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
+#API Server connectivity
+#VERY INSECURE. Purely for integration without spinning up on-prem helm
+resource "aws_security_group_rule" "controller_apiserver_outbound" {
+  count             = var.apiaccess == "true" ? 1 : 0
+  type              = "egress"
+  from_port         = 6443
+  to_port           = 6443
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = var.k8s_controller_node_sg

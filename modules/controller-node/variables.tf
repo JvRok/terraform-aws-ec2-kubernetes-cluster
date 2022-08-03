@@ -53,3 +53,8 @@ variable "k8s_worker_nodes_sg" {
 variable "join_tokenid" {
   description = "The token used to init the cluster"
 }
+
+variable apiaccess {
+  description = "Should apiaccess be enabled (insecure)"
+  default = "false"
+}
