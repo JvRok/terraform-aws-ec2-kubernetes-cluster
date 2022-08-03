@@ -82,5 +82,12 @@ chown $(id -u):$(id -g) /root/.kube/config
 curl https://docs.projectcalico.org/manifests/calico.yaml -O
 
 /usr/bin/kubectl  apply -f calico.yaml --kubeconfig=/etc/kubernetes/admin.conf 
-
+if [ "${apiaccess}" = true ]
+then
+  echo "insecureToken,ec2-admin-user,ec2-admin-user,cluster-admin,cluster-admin" > /etc/kubernetes/pki/bearer-tokens.csv
+  /usr/bin/kubectl create serviceaccount ec2-admin-user --kubeconfig=/etc/kubernetes/admin.conf 
+  /usr/bin/kubectl create clusterrolebinding ec2-admin-user-crb --clusterrole=cluster-admin --user=ec2-admin-user --kubeconfig=/etc/kubernetes/admin.conf 
+  /usr/bin/sed -i '/- kube-apiserver/a \
+    - --token-auth-file=/etc/kubernetes/pki/bearer-tokens.csv' /etc/kubernetes/manifests/kube-apiserver.yaml
+fi
 #calicoctl not installed here, could be done?

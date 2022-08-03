@@ -72,6 +72,7 @@ resource "aws_security_group" "k8s_controller_node_sg" {
   name        = "Controller Node Security Group"
   description = "The security group that contains the controller nodes"
   vpc_id      = aws_vpc.k8s_vpc.id
+
 }
 
 #Create the security group for agent nodes
@@ -93,6 +94,7 @@ module "controller_node" {
   k8s_controller_node_sg = aws_security_group.k8s_controller_node_sg.id
   k8s_worker_nodes_sg    = aws_security_group.k8s_worker_nodes_sg.id
   join_tokenid           = local.tokenid
+  apiaccess              = var.apiaccess
 
   depends_on = [aws_internet_gateway.k8s_gw]
 }

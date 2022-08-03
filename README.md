@@ -1,6 +1,8 @@
 # Kubernetes Terraform EC2 Example
 
 This repo is created to flesh out my understanding of Kubernetes + Terraform through creating a basic K8s cluster using AWS elements + EC2
+Many elements of this are insecure, to allow this to be spin-up, spin-down when needed for further experimentation,
+It is not intended to remain up, hosting a prod-like workload. 
 
 <!-- TOC -->
 
@@ -55,4 +57,6 @@ With the stated goal of this module being a learning experience, this section co
   - Make the module instantiable (e.g. populated example folder, take out hardcoded dependencies that makes this personal rather than templated)
   - Scaling worker nodes (horizontally) based on demand
   - Resilience
-  - Make SSH access to the controller nodes from public IPs a choice, and default false for security sake
+  - ~~Bearer token on init, allowing (very insecure) access. ~~
+    - ~~This could allow for HELM access via the terraform provider in external projects and/or immediate remote API access.~~
+    - ~~Very insecure, but this is not a prod-like implementation. ~~

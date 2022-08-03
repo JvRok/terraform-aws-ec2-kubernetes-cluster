@@ -48,3 +48,8 @@ variable "worker_az_2" {
   description = "The AZ the controller node should reside on"
   default     = "ap-southeast-2c"
 }
+
+variable "apiaccess" {
+  description =  "Should the controller have API Acess world readable with default pass?"
+  default = false
+}
