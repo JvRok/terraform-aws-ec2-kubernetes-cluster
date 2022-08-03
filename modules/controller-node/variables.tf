@@ -58,3 +58,9 @@ variable apiaccess {
   description = "Should apiaccess be enabled (insecure)"
   default = "false"
 }
+
+variable "bearer_token_password" {
+  description =  "Bearer token password for API Access. Requires apiaccess to be true"
+  default = "insecureToken"
+}
+

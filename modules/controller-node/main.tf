@@ -23,8 +23,9 @@ data "template_file" "k8s_controller_script" {
   template = file("${path.module}/bootstrap/kubernetes-master-setup.sh")
 
   vars = {
-    init_token = var.join_tokenid,
-    apiaccess  = var.apiaccess
+    init_token            = var.join_tokenid
+    apiaccess             = var.apiaccess
+    bearer_token_password = var.bearer_token_password
   }
 
 }
