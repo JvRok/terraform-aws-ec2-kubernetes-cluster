@@ -28,7 +28,16 @@ I would generally use EKS on AWS, but the purpose of this module is to explore a
 
 ## Dependencies and Setup
 
-TBA
+Set up AWS CLI
+Install Terraform
+
+To access Kubernetes cluster remotely, install kubectl and access the cluster remotely with:
+
+```kubectl
+
+kubectl -s="https://<controller-node-ip>:6443" --token=<tokenName - default "insecureToken"> --insecure-skip-tls-verify=true get nodes
+
+```
 
 ## Notes
 
