@@ -53,3 +53,8 @@ variable "apiaccess" {
   description =  "Should the controller have API Acess world readable with default pass?"
   default = false
 }
+
+variable "bearer_token_password" {
+  description =  "Bearer token password for API Access. Requires apiaccess to be true"
+  default = "insecureToken"
+}

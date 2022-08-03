@@ -95,6 +95,7 @@ module "controller_node" {
   k8s_worker_nodes_sg    = aws_security_group.k8s_worker_nodes_sg.id
   join_tokenid           = local.tokenid
   apiaccess              = var.apiaccess
+  bearer_token_password  = var.bearer_token_password
 
   depends_on = [aws_internet_gateway.k8s_gw]
 }
