@@ -17,8 +17,9 @@ It is not intended to remain up, hosting a prod-like workload.
 
 ## Updates
 
-- *2022.07.11* Readme + Initial Controller EC2 Instance
+- *2022.08.04* Updated with bearer token access conditionally enabled, allowing remote apiserver access
 - *2022.07.26* Security Groups, Routing Table + VPC, Token Random Generation for Init, worker node join
+- *2022.07.11* Readme + Initial Controller EC2 Instance
 
 ## Description
 
